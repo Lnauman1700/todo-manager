@@ -1,9 +1,12 @@
+import datetime
 
 class Item(object):
 
-    # should have following attributes:
+
+    def __init__(self, contents):
         # timestamp of when it was created
-
-        # boolean marking the item as complete/not completed
-
+        self.timestamp = datetime.datetime.now()
+        # boolean marking the item as complete/not completed (false to begin)
+        self.is_complete = False
         # text of the actual to-do item
+        self.contents = contents
