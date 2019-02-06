@@ -1,10 +1,26 @@
-
 import items
 
 # one object of this class should be made when you run the script
 class Manager(object):
+
     # should print all the to-do items in the list
-        # would likely skip over those things that are marked as completed.
+    def current_list(self):
+
+        file = open("todos.txt", "r")
+
+        lines_list = file.readlines()
+
+        # should print the info out to the terminal
+        for line in lines_list:
+            contents = line.split(",")
+            print(f"Task: {contents[0]}")
+            print(f"Time created: {contents[1]}")
+            if contents[2] == "True\n":
+                print("Task Status: Complete")
+            else:
+                print("Task Status: Not Yet Completed")
+
+            print("-" * 10)
 
     # should be able to add a new item to the list (database, todos.txt)
     def add_item(self, item):
