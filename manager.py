@@ -1,3 +1,4 @@
+
 import items
 
 # one object of this class should be made when you run the script
@@ -43,9 +44,14 @@ class Manager(object):
         for line in lines_list:
             if job in line:
                 contents = line.split(",")
-                contents[2] = 'True\n'
-                lines_list[index] = f"{contents[0]},{contents[1]},{contents[2]}"
+                if contents[2] == "False\n":
+                    contents[2] = 'True\n'
+                    lines_list[index] = f"{contents[0]},{contents[1]},{contents[2]}"
+                    break
             index += 1
+        # this else statement is attached to the for loop, and will activate only when the loop terminates without any lines changed
+        else:
+            print("Sorry, the task was either already completed or just not found")
 
         # delete contents of file entirely
         file.truncate(0)
