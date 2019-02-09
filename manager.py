@@ -21,11 +21,15 @@ class Manager(object):
             # print the task timestamp out
             print(f"Time created: {contents[1]}")
             # tell user whether item's is_completed = True or False
-            if contents[2] == "True\n":
+            if contents[2] == "True":
                 print("Task Status: Complete")
             else:
                 print("Task Status: Not Yet Completed")
 
+            if contents[3] == '':
+                print(f"Due: {contents[3]}")
+            else:
+                print(f"No defined due date")
             # added separation between items
             print("-" * 10)
 
@@ -34,7 +38,7 @@ class Manager(object):
         # should open up text file with append capabilities
         file = open("todos.txt", "a")
         # write item's attributes to the file
-        file.write(f"{item.job},{item.timestamp},{item.is_complete}\n")
+        file.write(f"{item.job},{item.timestamp},{item.is_complete},{item.due_date}\n")
         file.close()
 
     # should be able to mark an item as complete
@@ -54,10 +58,10 @@ class Manager(object):
                 # split the line at its separators
                 contents = line.split(",")
                 # check that the is_completed attribute is False
-                if contents[2] == "False\n":
-                    contents[2] = 'True\n'
+                if contents[2] == "False":
+                    contents[2] = 'True'
                     # change the list at the current index (representing the current line) to have is_completed = True
-                    lines_list[index] = f"{contents[0]},{contents[1]},{contents[2]}"
+                    lines_list[index] = f"{contents[0]},{contents[1]},{contents[2]},{contents[3]}"
                     # escape the loop so we don't change anything else
                     break
 
@@ -74,3 +78,6 @@ class Manager(object):
             file.write(line)
 
         file.close()
+
+    # finds the task that is due the soonest of all the tasks in the list, and prints it.
+    # def urgent_task(self):
