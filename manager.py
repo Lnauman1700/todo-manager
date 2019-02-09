@@ -1,5 +1,6 @@
 
 import items
+import datetime
 
 # one object of this class should be made when you run the script
 class Manager(object):
@@ -80,4 +81,16 @@ class Manager(object):
         file.close()
 
     # finds the task that is due the soonest of all the tasks in the list, and prints it.
-    # def urgent_task(self):
+    def urgent_task(self):
+        # make a list of all lines
+
+        # make another list of all lines with a due date who aren't complete yet
+
+        # loop through lines and put lines with a due date into above list
+
+        # create datetime object representing current time, also an empty value which represents the line with the soonest time
+
+        # loop through the due date line list and compare amount of time between due date and current time
+            # if the current time - due date is less than the current soonest time variable, set soonest time to be the line
+
+        # print out the line with the soonest time.
