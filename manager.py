@@ -27,7 +27,7 @@ class Manager(object):
             else:
                 print("Task Status: Not Yet Completed")
 
-            if contents[3] == '':
+            if contents[3] != '\n':
                 print(f"Due: {contents[3]}")
             else:
                 print(f"No defined due date")
@@ -80,17 +80,44 @@ class Manager(object):
 
         file.close()
 
+    
+
     # finds the task that is due the soonest of all the tasks in the list, and prints it.
     def urgent_task(self):
+
+        file.open("todos.txt", "r")
+
         # make a list of all lines
+        lines_list = file.readlines()
 
         # make another list of all lines with a due date who aren't complete yet
+        to_do_lines = []
 
         # loop through lines and put lines with a due date into above list
+        for line in lines:
+            contents = line.split(',')
+            if contents[3] != '\n':
+
+                if contents[2] == "False":
+                    to_do_lines.append(line)
+
 
         # create datetime object representing current time, also an empty value which represents the line with the soonest time
+        current_time = datetime.datetime.now()
+        soonest_item = datetime.datetime(2028)
 
         # loop through the due date line list and compare amount of time between due date and current time
+        for line in to_do_lines:
             # if the current time - due date is less than the current soonest time variable, set soonest time to be the line
+            contents = line.split(',')
+            contents[3].strip('\n')
+            try:
+                due_date = datetime.datetime.strptime(contents[3], '%Y%m%d %h')
+            except:
+                pass
+
+            if (due_date - current_time) < soonest_item:
+                soonest_item = due_date
 
         # print out the line with the soonest time.
+        if soonest_item != datetime.datetime(2028):
