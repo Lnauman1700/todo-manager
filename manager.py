@@ -82,7 +82,9 @@ class Manager(object):
 
     def convert_to_item(self, line):
 
-        contents = line.split(',')
+        stripped_line = line.strip('\n')
+
+        contents = stripped_line.split(',')
 
         timestamp = datetime.datetime.strptime(contents[1], '%Y-%m-%d %H:%M:%S.%f')
 
@@ -91,37 +93,49 @@ class Manager(object):
         if contents[2] == "True":
             completion = True
 
+
         due_date = ''
-        if contents[3] != '\n':
-            due_date = datetime.datetime.strptime(contents[3], '%Y-%m-%d %H')
+        if contents[3] != '':
+            due_date = datetime.datetime.strptime(contents[3], '%Y-%m-%d %H:%M:%S')
 
         return items.Item(contents[0], completion, timestamp, due_date)
 
     # finds the task that is due the soonest of all the tasks in the list, and prints it.
     def urgent_task(self):
 
-        file.open("todos.txt", "r")
+        file = open("todos.txt", "r")
 
         # make a list of all lines
         lines_list = file.readlines()
 
         # make another list of all lines with a due date who aren't complete yet
-        to_do_lines = []
+        items_list = []
 
-        # loop through lines and put lines with a due date into above list
-        for line in lines:
-            to_do_lines.append(self.convert_to_item(line))
+        # loop through lines and put items of each line into items_list
+        for line in lines_list:
+            items_list.append(self.convert_to_item(line))
+
+        # create a list of only items who aren't complete and who have a due date
+        final_list = []
+
+        # put items w/ due date and who aren't complete into final_list
+        for item in items_list:
+            if item.is_complete == False:
+                if item.due_date != '':
+                    final_list.append(item)
 
 
         # create datetime object representing current time, also an empty value which represents the line with the soonest time
         current_time = datetime.datetime.now()
-        soonest_item = items.Item('', False, )
+        # object representing the task that is the closest to the current time
+        soonest_item = final_list[0]
 
         # loop through the due date line list and compare amount of time between due date and current time
-        for item in to_do_lines:
-
-            if item.due_date - current_time < soonest_item.due_date:
-                soonest_item =
+        for item in final_list:
+            # if the time is shorter between item and current time than the soonest_item and current time, set that to be new soonest value
+            if item.due_date - current_time < soonest_item.due_date - current_time:
+                soonest_item = item
 
         # print out the line with the soonest time.
-        if soonest_item != datetime.datetime(2028):
+        print("You should:")
+        print(soonest_item.job)

@@ -3,9 +3,9 @@ import datetime
 class Item(object):
 
 
-    def __init__(self, job, is_complete = False, timestamp = '', due_date = '', ):
+    def __init__(self, job, is_complete = False, timestamp = '', due_date = ''):
         # timestamp of when it was created
-        if timestamp = '':
+        if timestamp == '':
             self.timestamp = datetime.datetime.now()
         else:
             self.timestamp = timestamp
