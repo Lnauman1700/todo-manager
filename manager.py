@@ -128,14 +128,18 @@ class Manager(object):
         # create datetime object representing current time, also an empty value which represents the line with the soonest time
         current_time = datetime.datetime.now()
         # object representing the task that is the closest to the current time
-        soonest_item = final_list[0]
+        if len(final_list) > 0:
+            soonest_item = final_list[0]
 
-        # loop through the due date line list and compare amount of time between due date and current time
-        for item in final_list:
-            # if the time is shorter between item and current time than the soonest_item and current time, set that to be new soonest value
-            if item.due_date - current_time < soonest_item.due_date - current_time:
-                soonest_item = item
+            # loop through the due date line list and compare amount of time between due date and current time
+            for item in final_list:
+                # if the time is shorter between item and current time than the soonest_item and current time, set that to be new soonest value
+                if item.due_date - current_time < soonest_item.due_date - current_time:
+                    soonest_item = item
 
-        # print out the line with the soonest time.
-        print("You should:")
-        print(soonest_item.job)
+            # print out the line with the soonest time.
+            print(soonest_item.job)
+        elif len(items_list) > 0:
+            print(items_list[0].job)
+        else:
+            print('No values in to-do list')
